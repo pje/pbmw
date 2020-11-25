@@ -1,0 +1,46 @@
+####### begin changes
+
+micro_pbmw.name=Arduino Micro (PBMW)
+micro_pbmw.build.usb_product="PBMW"
+micro_pbmw.build.vid=0x1209
+micro_pbmw.build.pid=0x0069
+# https://github.com/pidcodes/pidcodes.github.com
+micro_pbmw.build.core=arduino:arduino
+micro_pbmw.build.variant=arduino:micro
+
+####### end changes
+
+micro_pbmw.vid.0=0x2341
+micro_pbmw.pid.0=0x0037
+micro_pbmw.vid.1=0x2341
+micro_pbmw.pid.1=0x8037
+micro_pbmw.vid.2=0x2A03
+micro_pbmw.pid.2=0x0037
+micro_pbmw.vid.3=0x2A03
+micro_pbmw.pid.3=0x8037
+micro_pbmw.vid.4=0x2341
+micro_pbmw.pid.4=0x0237
+micro_pbmw.vid.5=0x2341
+micro_pbmw.pid.5=0x8237
+
+micro_pbmw.upload.tool=avrdude
+micro_pbmw.upload.protocol=avr109
+micro_pbmw.upload.maximum_size=28672
+micro_pbmw.upload.maximum_data_size=2560
+micro_pbmw.upload.speed=57600
+micro_pbmw.upload.disable_flushing=true
+micro_pbmw.upload.use_1200bps_touch=true
+micro_pbmw.upload.wait_for_upload_port=true
+
+micro_pbmw.bootloader.tool=avrdude
+micro_pbmw.bootloader.low_fuses=0xff
+micro_pbmw.bootloader.high_fuses=0xd8
+micro_pbmw.bootloader.extended_fuses=0xcb
+micro_pbmw.bootloader.file=caterina/Caterina-Micro.hex
+micro_pbmw.bootloader.unlock_bits=0x3F
+micro_pbmw.bootloader.lock_bits=0x2F
+
+micro_pbmw.build.mcu=atmega32u4
+micro_pbmw.build.f_cpu=16000000L
+micro_pbmw.build.board=AVR_MICRO
+micro_pbmw.build.extra_flags={build.usb_flags}

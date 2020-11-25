@@ -1,0 +1,6 @@
+build*/
+*.orig
+test/*test
+test/*.dSYM
+compile_commands.json
+.clangd/
