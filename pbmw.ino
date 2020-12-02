@@ -14,9 +14,7 @@ const unsigned char mw_header = (MIDI_OPCODE_CONTROL_CHANGE << 4) + MIDI_CHANNEL
 const uint16_t jitter_thresh = 5;
 const float alpha = 0.95; // {0..1} falloff factor for exponential moving average (higher means older values count less)
 const uint16_t ring_buffer_size = 64;
-const uint16_t pb_deadzone_radius = 200;
-const uint16_t pb_deadzone_lower = 8191 - pb_deadzone_radius;
-const uint16_t pb_deadzone_upper = 8191 + pb_deadzone_radius;
+unsigned char last_sent_mw = 0;
 
 long t = 0;
 
@@ -132,17 +130,15 @@ void loop() {
   unsigned char mw_lsb = (mw_curr & 0B0000000001111111);
   unsigned char mw_msb = (mw_curr & 0B0011111110000000) >> 7;
 
-  // accomodate for exponential moving average jitter reduction
-  if (
-    mw_curr != ring_buffer_get(mw_samples, 1) &&
-    abs((signed long)mw_curr - (signed long)mw_ave) > jitter_thresh
-  ) {
+  if (mw_msb != last_sent_mw) {
     USBMIDI.write(mw_header);
     USBMIDI.write(MIDI_CONTROL_CHANGE_MOD_WHEEL);
     USBMIDI.write(mw_msb);
     USBMIDI.flush();
+    last_sent_mw = mw_msb;
   }
 
+  // implement a pitch-bend deadzone of +/- 100
   if (pb_curr < (8192 + 100) && pb_curr > (8192 - 100)) {
     pb_curr = 8192;
   }
